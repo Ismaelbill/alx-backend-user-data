@@ -3,6 +3,8 @@
 from .auth import Auth
 import base64
 from typing import Tuple, TypeVar
+import fnmatch
+from models.user import User
 
 
 class BasicAuth(Auth):
@@ -56,3 +58,10 @@ class BasicAuth(Auth):
                 type(user_email) == str or
                 type(user_pwd) == str):
             return None
+
+        users = User.search({'email': user_email})
+        if not users:
+            return None
+        if users[0].is_valid_password(user_pwd):
+            return users[0]
+        return None
