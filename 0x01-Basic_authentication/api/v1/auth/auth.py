@@ -2,6 +2,7 @@
 """ Module - authentication
 """
 from typing import List, TypeVar
+import fnmatch
 
 
 class Auth:
@@ -17,6 +18,7 @@ class Auth:
         if (path is None or
                 not excluded_paths):
             return True
+        return any(fnmatch.fnmatch(path, pa) for pa in excluded_paths)
         if path[-1] != '/':
             path += '/'
 
