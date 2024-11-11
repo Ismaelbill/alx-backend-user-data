@@ -2,6 +2,7 @@
 """ Module - Basic Authentication """
 from .auth import Auth
 import base64
+from typing import Tuple, TypeVar
 
 
 class BasicAuth(Auth):
@@ -35,7 +36,7 @@ class BasicAuth(Auth):
     def extract_user_credentials(
                                 self,
                                 decoded_base64_authorization_header: str
-                                ) -> (str, str):
+                                ) -> Tuple[str, str]:
         """returns the user email and password
         from the Base64 decoded value."""
         if (decoded_base64_authorization_header is None or
