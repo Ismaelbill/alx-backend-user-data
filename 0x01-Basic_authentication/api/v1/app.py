@@ -24,7 +24,7 @@ elif auth and auth != 'basic_auth':
 
 @app.before_request
 def request_filt():
-    """"""
+    """filters if request.path in exculeded paths """
     if auth is None:
         return None
     if not auth.require_auth(request.path,
@@ -63,4 +63,4 @@ def not_found(error) -> str:
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
     port = getenv("API_PORT", "5000")
-    app.run(host=host, port=port, debug=True)
+    app.run(host=host, port=port)

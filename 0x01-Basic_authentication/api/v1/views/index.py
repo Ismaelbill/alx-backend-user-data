@@ -42,4 +42,3 @@ def forbidden() -> None:
     the error handler for 403 will be executed.
     """
     abort(403)
-
