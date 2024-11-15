@@ -13,7 +13,7 @@ class SessionAuth(Auth):
 
     def create_session(self, user_id: str = None) -> str:
         """creates a Session ID for a user_id"""
-        if not (user_id or type(user_id) == str):
+        if not (user_id or isinstance(user_id, str)):
             return None
         id = uuid4()
         self.user_id_by_session_id[id] = user_id
