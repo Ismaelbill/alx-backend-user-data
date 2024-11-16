@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """ module for authenticating a user """
-from flask import request, jsonify
+from flask import request, jsonify, abort
 from api.v1.views import app_views
 from models.user import User
+from api.v1.app import auth
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
@@ -27,3 +28,12 @@ def loginn():
 
             return response
     return jsonify({"error": "wrong password"}), 401
+
+
+@app_views.route('/auth_session/logout', methods=['DELETE'],
+                 strict_slashes=False)
+def logoutt():
+    """ logout route to delete a session id"""
+    if auth.destroy_session(request):
+        return jsonify({}), 200
+    return False, abort(404)
