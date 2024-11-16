@@ -36,4 +36,4 @@ def logoutt():
     """ logout route to delete a session id"""
     if auth.destroy_session(request):
         return jsonify({}), 200
-    return False, abort(404)
+    abort(404)
