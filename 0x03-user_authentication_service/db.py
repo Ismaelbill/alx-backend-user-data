@@ -38,10 +38,10 @@ class DB:
             new_user = User(email=email, hashed_password=hashed_password)
             session.add(new_user)
             session.commit()
+            return new_user
         except Exception:
             session.rollback()
-            new_user = None
-        return new_user
+            raise
 
     def find_user_by(self, **kwargs):
         """ method for finding user by a given kwargs
