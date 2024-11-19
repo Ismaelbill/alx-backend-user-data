@@ -35,7 +35,7 @@ class DB:
     def add_user(self, email: str, hashed_password: str) -> User:
         """ method for saving the user to the database.
         """
-        session: Session = self._session
+        session = self._session
         try:
             new_user: User = User(email=email, hashed_password=hashed_password)
             session.add(new_user)
@@ -50,7 +50,7 @@ class DB:
         """
         if not kwargs:
             raise InvalidRequestError()
-        session: Session = self._session
+        session = self._session
         try:
             user = session.query(User).filter_by(**kwargs).one()
             return user
@@ -63,7 +63,7 @@ class DB:
         """ method for updating a user infos by given kwargs
         """
         if user_id and kwargs:
-            session: Session = self._session
+            session = self._session
             user = session.query(User).filter_by(id=user_id).one()
             for key in kwargs:
                 if not hasattr(user, key):
