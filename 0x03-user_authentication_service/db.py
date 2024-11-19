@@ -38,19 +38,19 @@ class DB:
         self._session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs):
+    def find_user_by(self, **kwargs) -> User:
         """ method for finding user by a given kwargs
         """
         session = self._session
         try:
             user = session.query(User).filter_by(**kwargs).one()
         except NoResultFound:
-            raise NoResultFound()
+            raise NoResultFound
         except Exception:
-            raise InvalidRequestError()
+            raise InvalidRequestError
         return user
 
-    def update_user(self, user_id: int, **kwargs):
+    def update_user(self, user_id: int, **kwargs) -> User:
         """ method for updating a user infos by given kwargs
         """
         if user_id and kwargs:
@@ -58,7 +58,8 @@ class DB:
             user = session.query(User).filter_by(id=user_id).one()
             for key in kwargs:
                 if not hasattr(user, key):
-                    raise ValueError()
+                    raise ValueError
                 setattr(user, key, kwargs.get(key))
+                self._session.commit()
 
         return None
