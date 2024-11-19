@@ -59,6 +59,6 @@ class DB:
             if not hasattr(user, key):
                 raise ValueError
             setattr(user, key, kwargs.get(key))
-            self._session.commit()
+        self._session.commit()
 
         return None
