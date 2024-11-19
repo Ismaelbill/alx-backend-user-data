@@ -35,15 +35,15 @@ class DB:
     def add_user(self, email: str, hashed_password: str) -> User:
         """ method for saving the user to the database.
         """
+        session: Session = self._session
         try:
             new_user: User = User(email=email, hashed_password=hashed_password)
-            session: Session = self._session
             session.add(new_user)
             session.commit()
-            return new_user
         except Exception:
             session.rollback()
-            return None
+            new_user = None
+        return new_user
 
     def find_user_by(self, **kwargs):
         """ method for finding user by a given kwargs
