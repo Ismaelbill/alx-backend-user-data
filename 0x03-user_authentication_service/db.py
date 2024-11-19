@@ -53,13 +53,12 @@ class DB:
     def update_user(self, user_id: int, **kwargs) -> User:
         """ method for updating a user infos by given kwargs
         """
-        if user_id and kwargs:
-            session = self._session
-            user = session.query(User).filter_by(id=user_id).one()
-            for key in kwargs:
-                if not hasattr(user, key):
-                    raise ValueError
-                setattr(user, key, kwargs.get(key))
-                self._session.commit()
+        session = self._session
+        user = session.query(User).filter_by(id=user_id).one()
+        for key in kwargs:
+            if not hasattr(user, key):
+                raise ValueError
+            setattr(user, key, kwargs.get(key))
+            self._session.commit()
 
         return None
