@@ -41,16 +41,14 @@ class DB:
     def find_user_by(self, **kwargs):
         """ method for finding user by a given kwargs
         """
-        if not kwargs:
-            raise InvalidRequestError()
         session = self._session
         try:
             user = session.query(User).filter_by(**kwargs).one()
-            return user
         except NoResultFound:
-            raise NoResultFound()
+            raise
         except Exception:
-            raise InvalidRequestError()
+            raise
+        return user
 
     def update_user(self, user_id: int, **kwargs):
         """ method for updating a user infos by given kwargs
