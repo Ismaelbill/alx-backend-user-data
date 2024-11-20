@@ -97,8 +97,8 @@ class Auth:
         db.update_user(user.id, reset_token=_generate_uuid())
         return user.reset_token
 
-    def update_password(self, reset_token: str, password: str):
-        """ mthod for updating password by token
+    def update_password(self, reset_token: str, password: str) -> None:
+        """ method for updating password by token
         """
         db = self._db
         try:
@@ -108,3 +108,4 @@ class Auth:
         db.update_user(user.id,
                        hash_password=_hash_password(password),
                        reset_token=None)
+        return None
