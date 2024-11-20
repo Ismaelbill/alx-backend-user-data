@@ -50,9 +50,9 @@ def logout():
          abort 403
     """
     session_id = request.cookies.get('session_id')
-    user = AUTH.get_user_from_session_id(str(session_id))
+    user = AUTH.get_user_from_session_id(session_id)
     if user:
-        AUTH.destroy_session(int(session_id))
+        AUTH.destroy_session(session_id)
         return redirect('/')
     abort(403)
 
