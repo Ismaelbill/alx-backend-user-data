@@ -2,7 +2,7 @@
 """ building app with flask
 """
 from auth import Auth
-from flask import Flask, jsonify, request, abort, redirect
+from flask import Flask, jsonify, request, abort, redirect, url_for
 
 
 AUTH = Auth()
@@ -53,7 +53,7 @@ def logout():
     user = AUTH.get_user_from_session_id(session_id)
     if user:
         AUTH.destroy_session(session_id)
-        return redirect('/')
+        return redirect(url_for('home'))
     abort(403)
 
 
