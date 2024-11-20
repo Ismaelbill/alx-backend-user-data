@@ -34,7 +34,7 @@ class Auth:
             return created_user
         raise ValueError(f'User {email} already exists')
 
-    def valid_login(self, email: str, password: str):
+    def valid_login(self, email: str, password: str) -> bool:
         """ checking if user exists, if it matches return True.
             otherwise, return False
         """
