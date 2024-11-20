@@ -104,6 +104,8 @@ class Auth:
         try:
             user = db.find_user_by(reset_token=reset_token)
         except NoResultFound:
+            user = None
+        if not user:
             raise ValueError
         db.update_user(user.id,
                        hash_password=_hash_password(password),
