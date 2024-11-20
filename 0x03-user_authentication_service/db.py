@@ -61,4 +61,4 @@ class DB:
             setattr(user, key, kwargs.get(key))
         self._session.commit()
 
-        return None
+        return
