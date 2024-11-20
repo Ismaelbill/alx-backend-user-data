@@ -100,14 +100,10 @@ class Auth:
     def update_password(self, reset_token: str, password: str) -> None:
         """ method for updating password by token
         """
-        db = self._db
         try:
-            user = db.find_user_by(reset_token=reset_token)
+            user = self._db.find_user_by(reset_token=reset_token)
         except NoResultFound:
-            user = None
-        if not user:
             raise ValueError
-        db.update_user(user.id,
+        self._db.update_user(user.id,
                        hash_password=_hash_password(password),
                        reset_token=None)
-        return None
