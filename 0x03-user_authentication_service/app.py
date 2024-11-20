@@ -2,7 +2,7 @@
 """ building app with flask
 """
 from auth import Auth
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, redirect
 
 
 AUTH = Auth()
@@ -41,6 +41,20 @@ def log_in():
         response.set_cookie("session_id", sid)
         return response
     return abort(401)
+
+
+@app.route("/sessions", methods=['DELETE'])
+def logout():
+    """  If the user exists destroy the session
+         and redirect the user to home, otherwise
+         abort 403
+    """
+    session_id = request.cookies.get('session_id')
+    user = AUTH.get_user_from_session_id(str(session_id))
+    if user:
+        AUTH.destroy_session(int(session_id))
+        return redirect('/')
+    abort(403)
 
 
 if __name__ == "__main__":
