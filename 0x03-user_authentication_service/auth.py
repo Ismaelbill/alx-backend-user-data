@@ -25,11 +25,11 @@ class Auth:
         """ checks for if user exists if not it creates one, else raise
             a value error
         """
+        db = self._db
         try:
-            self._db.find_user_by(email=email)
+            db.find_user_by(email=email)
         except NoResultFound:
-            created_user = self._db.add_user(email,
-                                             _hash_password(password))
-            self._db._session.commit()
+            created_user = db.add_user(email,
+                                       _hash_password(password))
             return created_user
         raise ValueError(f'User {email} already exists')
